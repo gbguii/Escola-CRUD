@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+    <fullyQualifiedTypeName name="java.util.Date"/>
+    <fullyQualifiedTypeName name="obj.StudentObj"/>
+    <fullyQualifiedTypeName name="java.util.List"/>
+    <fullyQualifiedTypeName name="obj.CourseObj"/>
+    <fullyQualifiedTypeName name="obj.BasicObj"/>
+    <fullyQualifiedTypeName name="obj.ProfessorObj"/>
+    <fullyQualifiedTypeName name="obj.ClassRoomObj"/>
+</qualifiedTypeNameHistroy>

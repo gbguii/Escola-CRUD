@@ -1,0 +1,12 @@
+package obj;
+
+import java.util.List;
+
+public class ProfessorObj {
+	
+	private Long id;
+	private String firstName;
+	private String lastName;
+	private 
+	
+}

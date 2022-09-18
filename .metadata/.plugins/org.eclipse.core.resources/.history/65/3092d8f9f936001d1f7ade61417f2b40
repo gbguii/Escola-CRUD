@@ -1,0 +1,49 @@
+package obj;
+
+import java.util.Date;
+
+public class BasicObj {
+	/** Data de início do registro. */
+	private Date DtBegin;
+	/** Data de atualização do registro. */
+	private Date DtUpdate;
+	/** Data de fim do registro. */
+	private Date Dtnd;
+	
+	/**
+	 * Construor padrão.
+	 */
+	public BasicObj() {
+
+	}
+	
+	/**
+	 * Retorna a data de início do registro.
+	 * @return a data de início do registro.
+	 */
+	public Date getDtBegin() {
+		return DtBegin;
+	}
+	public void setDtBegin(Date dtBegin) {
+		DtBegin = dtBegin;
+	}
+	
+	/**
+	 * Retorna a data de atualização do registro.
+	 * @return a data de atualização do registro.
+	 */
+	public Date getDtUpdate() {
+		return DtUpdate;
+	}
+	public void setDtUpdate(Date dtUpdate) {
+		DtUpdate = dtUpdate;
+	}
+	public Date getDtnd() {
+		return Dtnd;
+	}
+	public void setDtnd(Date dtnd) {
+		Dtnd = dtnd;
+	}
+	
+	
+}

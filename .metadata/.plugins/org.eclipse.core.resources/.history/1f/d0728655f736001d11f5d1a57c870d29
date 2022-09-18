@@ -1,0 +1,34 @@
+package obj;
+
+import java.util.List;
+
+public class CourseObj extends BasicObj{
+	
+	private int id;
+	private String name;
+	private ProfessorObj professor;
+	
+	public CourseObj() {
+
+	}
+	
+	public CourseObj(String name, ProfessorObj professor) {
+		this.name = name;
+		this.professor = professor;
+	}
+
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public ProfessorObj getProfessor() {
+		return professor;
+	}
+	public void setProfessor(ProfessorObj professor) {
+		this.professor = professor;
+	}
+	
+	
+}

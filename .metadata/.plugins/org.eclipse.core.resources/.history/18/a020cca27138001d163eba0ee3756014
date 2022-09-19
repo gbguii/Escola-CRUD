@@ -1,0 +1,13 @@
+package beanView;
+
+import Exception.ShoolException;
+
+public class AbstractBeanView {
+	
+	
+	protected void validateName(String value) throws ShoolException {
+		if(value.isEmpty() || value == null || value.trim().isEmpty()) {
+			throw new ShoolException("O nome está vazio");
+		}
+	}
+}

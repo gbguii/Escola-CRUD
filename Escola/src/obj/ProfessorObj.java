@@ -1,6 +1,5 @@
 package obj;
 
-import java.util.List;
 
 public class ProfessorObj extends BasicObj{
 	
@@ -30,6 +29,14 @@ public class ProfessorObj extends BasicObj{
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.course = course;
+	}
+	
+	/**
+	 * Retorna o identificador do professor.
+	 * @return o identificador do professor.
+	 */
+	public Long getId() {
+		return this.id;
 	}
 	
 	/**

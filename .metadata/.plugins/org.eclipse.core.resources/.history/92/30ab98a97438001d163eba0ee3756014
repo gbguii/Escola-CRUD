@@ -1,0 +1,18 @@
+package Exception;
+
+@SuppressWarnings("serial")
+public class ShoolException extends RuntimeException{
+	/** Mensagem que será exibida ao usuário. */
+	private String mensage = "";
+	
+	/**
+	 * Lança uma exceção ao ser chamada.
+	 * @param value mensagem da exceção.
+	 */
+	public ShoolException(String value) {
+		this.mensage = value;
+	}
+	public String getMenssage() {
+		return this.mensage;
+	}
+}

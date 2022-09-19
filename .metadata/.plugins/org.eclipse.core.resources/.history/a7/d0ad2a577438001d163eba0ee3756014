@@ -1,0 +1,19 @@
+package main;
+
+import Exception.ShoolException;
+import beanView.ShoolStudentView;
+import obj.StudentObj;
+
+public class TesteMain {
+
+	public static void main(String[] args) {
+		ShoolStudentView teste = new ShoolStudentView();
+		try {
+			StudentObj student = teste.createStudent();
+			teste.studentToString(student);
+		} catch (ShoolException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+
+}

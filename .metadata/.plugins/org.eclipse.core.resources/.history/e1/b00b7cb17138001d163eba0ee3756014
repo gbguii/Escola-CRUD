@@ -1,0 +1,17 @@
+package beanView;
+
+import Exception.ShoolException;
+
+public class AbstractBeanView {
+	
+	/**
+	 * Valida se uma string para atributo nome é valida.
+	 * @param value String de nome.
+	 * @throws ShoolException Em caso valor não ser válido.
+	 */
+	protected void validateName(String value) throws ShoolException {
+		if(value.isEmpty() || value == null || value.trim().isEmpty()) {
+			throw new ShoolException("O nome está vazio");
+		}
+	}
+}

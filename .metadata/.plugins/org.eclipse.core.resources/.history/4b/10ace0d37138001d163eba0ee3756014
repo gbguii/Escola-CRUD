@@ -1,0 +1,14 @@
+package beanView;
+
+import obj.StudentObj;
+
+public class ShoolStudentView {
+	
+	public StudentObj createStudent() {
+		StudentObj student = new StudentObj();
+		System.out.print("Informe o primeiro nome do estudante: ");
+		String nome = 
+		return student;
+	}
+	
+}

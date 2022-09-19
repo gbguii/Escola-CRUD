@@ -32,6 +32,14 @@ public class ClassRoomObj extends BasicObj{
 		this.students = students;
 	}
 	
+	/**
+	 * Retorna o identificador da classe de aula.
+	 * @return o identificador da classe de aula.
+	 */
+	public Long getId() {
+		return this.id;
+	}
+	
 	/*
 	 * Retorna o nome da classe de aula.
 	 */

@@ -1,0 +1,13 @@
+package beanView;
+
+import Exception.ShoolExpection;
+
+public class AbstractBeanView {
+	
+	
+	protected void validateName(String value) throw{
+		if(value.isEmpty()) {
+			
+		}
+	}
+}

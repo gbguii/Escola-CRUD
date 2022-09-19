@@ -37,6 +37,14 @@ public class StudentObj extends BasicObj{
 	}
 	
 	/**
+	 * Retorna o identificador do estudante.
+	 * @return o identificador do estudante.
+	 */
+	public Long getId() {
+		return this.id;
+	}
+	
+	/**
 	 * Retorna o primeiro nome do aluno.
 	 * @return o primeiro nome do aluno.
 	 */

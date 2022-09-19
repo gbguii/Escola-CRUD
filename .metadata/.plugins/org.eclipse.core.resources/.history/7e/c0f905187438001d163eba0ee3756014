@@ -1,0 +1,14 @@
+package Exception;
+
+@SuppressWarnings("serial")
+public class ShoolException extends Exception{
+	
+	private String mensage = "";
+	
+	public ShoolException(String value) {
+		this.mensage = value;
+	}
+	public String getMenssage() {
+		return this.mensage;
+	}
+}

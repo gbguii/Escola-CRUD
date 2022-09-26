@@ -1,0 +1,48 @@
+package Implementation;
+
+import java.sql.Connection;
+import java.sql.Statement;
+
+import Connection.CreateConnection;
+import Exception.ShoolException;
+import obj.StudentObj;
+
+public class StudentImpl {
+	
+	
+	
+	public void create(StudentObj studant) {
+		this.validate(studant);
+		StringBuilder sb = new StringBuilder();
+		sb.append("INSERT INTO students(student_first_name, student_last_name, dt_begin, dt_update_, dt_end) VALUES(?,?,?,?,?)");
+		Connection connection = CreateConnection.getConection();
+		Statement stmt = connection.createStatement(sb);
+	}
+	
+	public void update(StudentObj studant) {
+		this.validate(studant);
+	}
+	
+	public void delet(StudentObj studant) {
+		
+	}
+	
+	public StudentObj getStudent(Long id) {
+		StudentObj student = new StudentObj();
+		return student;
+	}
+	
+	public StudentObj getStudent(String name) {
+		StudentObj student = new StudentObj();	
+		return student;
+	}
+	
+	private void validate(StudentObj studant) {
+		if(studant.getFirstName() == null || studant.getFirstName().isEmpty()) {
+			throw new ShoolException("O primeiro nome está vazio");
+		}
+		if(studant.getLastName() == null || studant.getLastName().isEmpty()) {
+			throw new ShoolException("O último nome está vazio");
+		}
+	}
+}

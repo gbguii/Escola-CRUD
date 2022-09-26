@@ -1,0 +1,11 @@
+package Implementation;
+
+import obj.StudentObj;
+
+public class StudentImpl {
+	
+	public void create(StudentObj studant) {
+		
+	}
+	
+}

@@ -1,8 +1,0 @@
-package Exception;
-
-public class ShoolExpection extends Exception{
-
-	public void generateMensageException(String value) throws Exception {
-		throw new Exception(value);
-	}
-}

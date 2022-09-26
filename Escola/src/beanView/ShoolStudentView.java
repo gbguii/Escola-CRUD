@@ -3,9 +3,13 @@ package beanView;
 import java.util.Scanner;
 
 import Exception.ShoolException;
+import Implementation.StudentImpl;
 import obj.StudentObj;
 
 public class ShoolStudentView extends AbstractBeanView{
+	
+	
+	private StudentImpl studentImpl = new StudentImpl();
 	
 	/**
 	 * Cria a primeira instância de um estudante.
@@ -29,10 +33,12 @@ public class ShoolStudentView extends AbstractBeanView{
 		student.setFirstName(firstName);
 		// Define o ultimo nome no objeto.
 		student.setLastName(LastName);
+		studentImpl.create(student);
 		// Fecha o scanner.
 		sc.close();
 		// Retorna o objeto.
 		return student;
 	}
-
+	
+	
 }

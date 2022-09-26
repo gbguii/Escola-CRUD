@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;Escola/src/Properties/conexao.properties&apos; to &apos;connection.properties&apos;" description="Rename resource &apos;conexao.properties&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="src/Properties/conexao.properties" name="connection.properties" stamp="1664150431185" updateReferences="true"/>
+</session>

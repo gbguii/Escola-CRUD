@@ -1,0 +1,26 @@
+package Implementation;
+
+import obj.StudentObj;
+
+public class StudentImpl {
+	
+	
+	
+	public void create(StudentObj studant) {
+			
+	}
+	
+	public void update(StudentObj studant) {
+		
+	}
+	
+	public void delet(StudentObj studant) {
+		
+	}
+	
+	public StudentObj getStudent(Long id) {
+		StudentObj student = new StudentObj();
+		
+		return student;
+	}
+}

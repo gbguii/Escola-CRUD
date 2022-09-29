@@ -1,15 +1,52 @@
 package beanView;
 
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 import Exception.ShoolException;
 import Implementation.StudentImpl;
 import obj.StudentObj;
 
+/** Classe do estudante.*/
 public class ShoolStudentView extends AbstractBeanView{
-	
-	
+	// Cria um instancia da classe de implementação.
 	private StudentImpl studentImpl = new StudentImpl();
+	// Lista de estudantes cadastrados.
+	private List<StudentObj> studentList = new ArrayList<>();
+	
+	/**
+	 * Construtor padrão.
+	 */
+	public ShoolStudentView() {
+		this.loadClass();
+	}
+	
+	/**
+	 * Carrega os dados da classe.
+	 */
+	private void loadClass() {
+		try {
+			// Recupera os estudantes cadastrados.
+			studentList = studentImpl.getStudentList();
+		// Em caso de erro.
+		} catch (SQLException e) {
+			// Lança exceção.
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Imprime a lista de usuário.
+	 */
+	public void printStudent() {
+		if(!this.getStudentList().isEmpty()) {
+			for(StudentObj student : this.getStudentList()) {
+				System.out.println(student.getId() + " - " + student.getFirstName()  + " " + student.getLastName());
+			}
+		}
+	}
 	
 	/**
 	 * Cria a primeira instância de um estudante.
@@ -33,12 +70,58 @@ public class ShoolStudentView extends AbstractBeanView{
 		student.setFirstName(firstName);
 		// Define o ultimo nome no objeto.
 		student.setLastName(LastName);
-		studentImpl.create(student);
+		try {
+			studentImpl.create(student);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		// Fecha o scanner.
 		sc.close();
 		// Retorna o objeto.
 		return student;
 	}
 	
+	/**
+	 * Retorna um estudante pelo id.
+	 * @return um estudante pelo id.
+	 */
+	public StudentObj getStudent() {
+		// Inicializa o objeto de retorno.
+		StudentObj student = new StudentObj();
+		// Cria o scanner.
+		Scanner sc = new Scanner(System.in);
+		// Imprime mensagem.
+		System.out.print("Digite o id do usuário: ");
+		// Recupera o valor informado.
+		Long id = sc.nextLong();
+		try {
+			// Consulta o estudante pelo id.
+			student = this.studentImpl.getStudentById(id);
+		// em caso de erro.
+		} catch (SQLException e) {
+			// Lança exceção.
+			e.printStackTrace();
+		}
+		// Fecha o scanner.
+		sc.close();
+		return student;
+	}
+	
+	/**
+	 * Retorna a lista de estudantes.
+	 * @return a lista de estudantes.
+	 */
+	public List<StudentObj> getStudentList() {
+		return studentList;
+	}
+	
+	/**
+	 * Define a lista de estudantes.
+	 * @param studentList lista de estudante.
+	 */
+	public void setStudentList(List<StudentObj> studentList) {
+		this.studentList = studentList;
+	}
 	
 }

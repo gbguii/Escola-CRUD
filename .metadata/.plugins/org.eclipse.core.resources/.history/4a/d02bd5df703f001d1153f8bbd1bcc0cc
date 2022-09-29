@@ -1,0 +1,105 @@
+package Implementation;
+
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Calendar;
+
+import Connection.CreateConnection;
+import Exception.ShoolException;
+import obj.StudentObj;
+
+public class StudentImpl {
+	
+	
+	/**
+	 * Cria um novo usuário na base de dados.
+	 * @param student objeto de usuário para ser criado.
+	 * @throws SQLException em caso de erro.
+	 */
+	public void create(StudentObj student) throws SQLException {
+		// Valida os campos
+		this.validate(student);
+		// Cria string para conter query de criação.
+		StringBuilder sb = new StringBuilder();
+		// Adiciona o query.
+		sb.append("INSERT INTO students(student_first_name, student_last_name, student_dt_begin, student_dt_update, student_dt_end) VALUES(?,?,?,?,?)");
+		// Cria um coneção com o banco.
+		Connection connection = CreateConnection.getConection();
+		try {
+			// Recupera a hora atual.
+			Calendar c = Calendar.getInstance();
+			// Inicializa a preparação de execução.
+			PreparedStatement stmt = connection.prepareStatement(sb.toString());
+			// Define o primeiro pâmetro com primeiro nome.
+			stmt.setString(1, student.getFirstName());
+			// Define o segundo pâmetro com sobrenome.
+			stmt.setString(2, student.getLastName());
+			// Define o terceiro pâmetro com a data de inicio do registro.
+			stmt.setDate(3, new Date(c.getTimeInMillis()));
+			// Define o quarto pâmetro com a data de atualização do registro.
+			stmt.setDate(4, new Date(c.getTimeInMillis()));
+			// Define o ano de fim do registro.
+			c.set(2200, 0, 0);
+			// Define o quinto pâmetro com a data de fim do registro.
+			stmt.setDate(5, new Date(c.getTimeInMillis()));
+			// Executa a query.
+			stmt.execute();
+			// em caso de erro.
+		} catch (SQLException e) {
+			// lança a exceção.
+			e.printStackTrace();
+		}finally {
+			// fecha a conexão com o banco.
+			connection.close();
+		}
+	}
+	
+	public void update(StudentObj student) {
+		this.validate(student);
+	}
+	
+	public void delet(StudentObj student) {
+		
+	}
+	
+	public StudentObj getStudent(Long id) throws SQLException {
+		StudentObj student = new StudentObj();
+		Connection connection = CreateConnection.getConection();
+		StringBuilder sb = new StringBuilder();
+		sb.append("SELECT * FROM students s");
+		sb.append("s.student_id = ?");
+		sb.append("AND s.student_dt_end > current_timestamp");
+		try {
+			PreparedStatement stmt = connection.prepareStatement(sb.toString());
+			stmt.setLong(1, id);
+			ResultSet result = stmt.getResultSet();
+			while(result.next()) {
+				student.set
+				student.setFirstName(result.getString("student_first_name"));
+			}
+		} catch (SQLException e) {
+			// Lança execeção.
+			e.printStackTrace();
+		}finally {
+			connection.close();
+		}
+		return student;
+	}
+	
+	public StudentObj getStudent(String name) {
+		StudentObj student = new StudentObj();	
+		return student;
+	}
+	
+	private void validate(StudentObj studant) {
+		if(studant.getFirstName() == null || studant.getFirstName().isEmpty()) {
+			throw new ShoolException("O primeiro nome está vazio");
+		}
+		if(studant.getLastName() == null || studant.getLastName().isEmpty()) {
+			throw new ShoolException("O último nome está vazio");
+		}
+	}
+}

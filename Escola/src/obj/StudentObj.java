@@ -44,6 +44,10 @@ public class StudentObj extends BasicObj{
 		return this.id;
 	}
 	
+	public void setId(Long id) {
+		this.id = id;
+	}
+	
 	/**
 	 * Retorna o primeiro nome do aluno.
 	 * @return o primeiro nome do aluno.

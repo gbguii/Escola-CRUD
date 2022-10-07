@@ -27,26 +27,22 @@ public class StudentImpl {
 		// Cria string para conter query de criação.
 		StringBuilder sb = new StringBuilder();
 		// Adiciona o query.
-		sb.append("INSERT INTO students(student_first_name, student_last_name, student_dt_begin, student_dt_update, student_dt_end) VALUES(?,?,?,?,?)");
+		sb.append("INSERT INTO students(student_first_name, student_last_name, student_dt_begin, student_dt_update, student_dt_end) VALUES(?,?,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,?)");
 		// Cria um coneção com o banco.
 		Connection connection = CreateConnection.getConection();
 		try {
 			// Recupera a hora atual.
 			Calendar c = Calendar.getInstance();
+			// Define o ano de fim do registro.
+			c.set(2200, 0, 0);
 			// Inicializa a preparação de execução.
 			PreparedStatement stmt = connection.prepareStatement(sb.toString());
 			// Define o primeiro pâmetro com primeiro nome.
 			stmt.setString(1, student.getFirstName());
 			// Define o segundo pâmetro com sobrenome.
 			stmt.setString(2, student.getLastName());
-			// Define o terceiro pâmetro com a data de inicio do registro.
+			// Define o terceiro pâmetro com a data de fim do registro.
 			stmt.setDate(3, new Date(c.getTimeInMillis()));
-			// Define o quarto pâmetro com a data de atualização do registro.
-			stmt.setDate(4, new Date(c.getTimeInMillis()));
-			// Define o ano de fim do registro.
-			c.set(2200, 0, 0);
-			// Define o quinto pâmetro com a data de fim do registro.
-			stmt.setDate(5, new Date(c.getTimeInMillis()));
 			// Executa a query.
 			stmt.execute();
 			// em caso de erro.
@@ -59,8 +55,33 @@ public class StudentImpl {
 		}
 	}
 	
-	public void update(StudentObj student) {
+	public void update(StudentObj student) throws SQLException {
 		this.validate(student);
+		Connection connection = CreateConnection.getConection();
+		StringBuilder sb = new StringBuilder();
+		sb.append("UPDATE students ");
+		sb.append("SET student_first_name = ?, ");
+		sb.append("student_last_name = ?, ");
+		sb.append("student_dt_update = CURRENT_TIMESTAMP ");
+		sb.append("WHERE student_id = ?");
+		// Inicializa a preparação de execução.
+		PreparedStatement stmt = connection.prepareStatement(sb.toString());
+		try {
+			// Define o primeiro pâmetro com primeiro nome.
+			stmt.setString(1, student.getFirstName());
+			// Define o segundo pâmetro com sobrenome.
+			stmt.setString(2, student.getLastName());
+			// Define o quarto parâmetro com o identificador do estudante.
+			stmt.setLong(3, student.getId());
+			stmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			connection.close();
+			stmt.close();
+		}
+		
 	}
 	
 	public void delet(StudentObj student) {

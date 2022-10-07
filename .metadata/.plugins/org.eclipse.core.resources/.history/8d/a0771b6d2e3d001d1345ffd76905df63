@@ -1,9 +1,0 @@
-package Connection;
-
-import java.sql.Connection;
-import java.sql.DriverManager;
-
-public class CreateConnection {
-	
-	 Connection connection = DriverManager.getConnection(null);
-}

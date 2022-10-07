@@ -1,0 +1,8 @@
+package beanView;
+
+public abstract class Crud {
+	public abstract void create();
+	public abstract void read();
+	public abstract void update();
+	public abstract void remove();
+}

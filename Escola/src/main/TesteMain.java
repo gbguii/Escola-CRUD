@@ -11,7 +11,5 @@ import obj.StudentObj;
 public class TesteMain {
 	public static void main(String[] args) throws SQLException {
 		ShoolStudentView getStudent = new ShoolStudentView();
-		getStudent.printStudent();
-		getStudent.getStudent();
 	}
 }

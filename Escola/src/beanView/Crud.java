@@ -1,0 +1,24 @@
+package beanView;
+
+public abstract class Crud {
+	
+	/**
+	 * Realiza o processo de criação.
+	 */
+	public abstract void create();
+	
+	/**
+	 * Realiza o processo de leitura.
+	 */
+	public abstract void read();
+	
+	/**
+	 * Realiza o processo de atualização
+	 */
+	public abstract void update();
+	
+	/**
+	 * Realiza o processo de deletar
+	 */
+	public abstract void delete();
+}

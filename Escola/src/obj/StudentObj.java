@@ -112,5 +112,12 @@ public class StudentObj extends BasicObj{
 		this.courses = courses;
 	}
 	
-	
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append(this.getId() + " - ");
+		sb.append(this.getFirstName() + " ");
+		sb.append(this.getLastName() + " ");
+		sb.append(this.getCourses() != null ? this.getCourses(): "");
+		return sb.toString();
+	}
 }

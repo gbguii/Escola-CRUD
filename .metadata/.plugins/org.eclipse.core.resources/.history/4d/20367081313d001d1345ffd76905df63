@@ -1,3 +1,0 @@
-bank.url=jdbc:mysql://localhost/curso_java?verifyServerCertificate=false&useSSL=true
-bank.login=root
-bank.password=lgbluiz1414

@@ -1,0 +1,189 @@
+package beanView;
+
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+import Exception.ShoolException;
+import Implementation.StudentImpl;
+import obj.StudentObj;
+
+/** Classe do estudante. */
+public class ShoolStudentView extends AbstractBeanView {
+	
+	// Cria um instancia da classe de implementação.
+	private StudentImpl studentImpl = new StudentImpl();
+	// Lista de estudantes cadastrados.
+	private List<StudentObj> studentList = new ArrayList<>();
+
+	/**
+	 * Construtor padrão.
+	 */
+	public ShoolStudentView() {
+		this.loadClass();
+		this.init();
+	}
+	
+	
+	/**
+	 * Carrega os dados da classe.
+	 */
+	private void loadClass() {
+		try {
+			// Recupera os estudantes cadastrados.
+			studentList = studentImpl.getStudentList();
+			// Em caso de erro.
+		} catch (SQLException e) {
+			// Lança exceção.
+			e.printStackTrace();
+		}
+	}
+	
+	public void init() {
+		this.printStudentList();
+		this.selectOption();
+	}
+	
+	/**
+	 * Seleciona a opção de entrada a ser executada.
+	 */
+	public void selectOption() {
+		// Recupera a opção do usuário.
+		int option = this.optionSelected();
+		this.optionCrud(option);
+	}
+	
+	/**
+	 * Retorna a opção selecionada pelo usuário.
+	 * @return a opção selecionada pelo usuário.
+	 */
+	private int optionSelected() {
+		// Inicializa o scanner.
+		Scanner sc = new Scanner(System.in);
+		System.out.println("O que deseja fazer? ");
+		// Percorre a lista de opções do que se pode fazer.
+		for (int i = 0; i < this.options().size(); i++) {
+			// Imprime a opção.
+			System.out.println(i + " - " + this.options().get(i));
+		}
+		System.out.print("Digite a opção: ");
+		// Recupera a opção selecionada.
+		int result = sc.nextInt();
+		// Fecha o scanner.
+		sc.close();
+		return result;
+	}
+
+	/**
+	 * Imprime a lista de usuário.
+	 */
+	public void printStudentList() {
+		if (!this.getStudentList().isEmpty()) {
+			for (StudentObj student : this.getStudentList()) {
+				System.out.println(student.getId() + " - " + student.getFirstName() + " " + student.getLastName());
+			}
+		}
+	}
+
+	/**
+	 * Cria a primeira instância de um estudante.
+	 * 
+	 * @return Retorna o objeto do estudante.
+	 * @throws ShoolException em caso de erro ao criar um estudante.
+	 */
+	public StudentObj createStudent() throws ShoolException {
+		// Cria um objeto de estudante.
+		StudentObj student = new StudentObj();
+		// Inicializa um scanner.
+		Scanner sc = new Scanner(System.in);
+		// Informa ao usuário para digitar o primeiro nome.
+		System.out.print("Informe o primeiro nome do estudante: ");
+		// Recupera o nome digitado e valida.
+		String firstName = this.validateName(sc.nextLine());
+		// Informa ao usuário para digitar o último nome.
+		System.out.print("\nInforme o sobrenome do estudante: ");
+		// Recupera o nome digitado e valida.
+		String LastName = this.validateName(sc.nextLine());
+		// Define o primeiro nome no objeto.
+		student.setFirstName(firstName);
+		// Define o ultimo nome no objeto.
+		student.setLastName(LastName);
+		try {
+			studentImpl.create(student);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		// Fecha o scanner.
+		sc.close();
+		// Retorna o objeto.
+		return student;
+	}
+
+	/**
+	 * Retorna um estudante pelo id.
+	 * 
+	 * @return um estudante pelo id.
+	 */
+	private StudentObj getStudent() {
+		// Inicializa o objeto de retorno.
+		StudentObj student = new StudentObj();
+		// Cria o scanner.
+		Scanner sc = new Scanner(System.in);
+		// Imprime mensagem.
+		System.out.print("Digite o id do usuário: ");
+		// Recupera o valor informado.
+		Long id = sc.nextLong();
+		// Itera pela lista de estudantes cadastrada.
+		for (StudentObj studentObj : this.getStudentList()) {
+			// Verifica se o id de entrada é igual ao do objeto atual.
+			if (studentObj.getId().equals(id)) {
+				// estudante de retorno recebe o objeto atual.
+				student = studentObj;
+			}
+		}
+		sc.close();
+		return student;
+	}
+
+	/**
+	 * Retorna a lista de estudantes.
+	 * 
+	 * @return a lista de estudantes.
+	 */
+	public List<StudentObj> getStudentList() {
+		return studentList;
+	}
+
+	/**
+	 * Define a lista de estudantes.
+	 * 
+	 * @param studentList lista de estudante.
+	 */
+	public void setStudentList(List<StudentObj> studentList) {
+		this.studentList = studentList;
+	}
+
+	@Override
+	public void create() {
+		this.createStudent();
+	}
+
+	@Override
+	public void read() {
+		this.getStudent();
+	}
+
+	@Override
+	public void update() {
+
+	}
+
+	@Override
+	public void delete() {
+		// TODO Auto-generated method stub
+
+	}
+
+}

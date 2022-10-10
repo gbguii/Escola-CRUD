@@ -16,7 +16,6 @@ public class ShoolStudentView extends AbstractBeanView {
 	private StudentImpl studentImpl = new StudentImpl();
 	// Lista de estudantes cadastrados.
 	private List<StudentObj> studentList = new ArrayList<>();
-	private static Scanner sc = new Scanner(System.in);
 
 	/**
 	 * Construtor padrão.
@@ -25,7 +24,7 @@ public class ShoolStudentView extends AbstractBeanView {
 		this.loadClass();
 		this.init();
 	}
-
+	
 	/**
 	 * Carrega os dados da classe.
 	 */
@@ -39,43 +38,33 @@ public class ShoolStudentView extends AbstractBeanView {
 			e.printStackTrace();
 		}
 	}
-
+	
+	/**
+	 * Gera as informações da classe.
+	 */
 	public void init() {
+		// Imprime a lista de estudantes.
 		this.printStudentList();
+		// Seleciona uma opção.
 		this.selectOption();
 	}
-
+	
 	/**
-	 * Seleciona a opção de entrada a ser executada.
+	 * Ajusta a classe após um atualização de dados.
+	 * @param isUpdate se foi atualizado algum dado.
 	 */
-	public void selectOption() {
-		// Recupera a opção do usuário.
-		int option = this.optionSelected();
-		// Seleciona a opção.
-		this.optionCrud(option);
-	}
-
-	/**
-	 * Retorna a opção selecionada pelo usuário.
-	 * 
-	 * @return a opção selecionada pelo usuário.
-	 */
-	private int optionSelected() {
-		System.out.println("O que deseja fazer? ");
-		// Percorre a lista de opções do que se pode fazer.
-		for (int i = 0; i < this.options().size(); i++) {
-			// Imprime a opção.
-			System.out.println(i + 1 + " - " + this.options().get(i));
+	private void adjustClass(boolean isUpdate) {
+		// Verifica se foi atualizado algum dado.
+		if(isUpdate) {
+			// Recarre a classe.
+			this.loadClass();
 		}
-		System.out.print("Digite a opção: ");
-		// Recupera a opção selecionada.
-		int result = sc.nextInt();
-		System.out.println();
-		return result;
+		// Gera as informações da classe.
+		this.init();
 	}
-
+	
 	/**
-	 * Imprime a lista de usuário.
+	 * Imprime a lista de estudantes.
 	 */
 	public void printStudentList() {
 		if (!this.getStudentList().isEmpty()) {
@@ -150,12 +139,15 @@ public class ShoolStudentView extends AbstractBeanView {
 			}
 			// Informa ao usuário.
 			System.out.println("Atualização realizada!");
+			this.adjustClass(true);
+		}else {
+			System.out.println("Atualização interrompida");
+			this.adjustClass(false);
 		}
 	}
-
+	
 	/**
 	 * Retorna um estudante pelo id.
-	 * 
 	 * @return um estudante pelo id.
 	 */
 	private StudentObj getStudent() {
@@ -164,7 +156,7 @@ public class ShoolStudentView extends AbstractBeanView {
 		// Imprime mensagem.
 		System.out.print("Selecione um aluno pelo id: ");
 		// Recupera o valor informado.
-		Long id = sc.nextLong();
+		Long id = this.sc.nextLong();
 		// Itera pela lista de estudantes cadastrada.
 		for (StudentObj studentObj : this.getStudentList()) {
 			// Verifica se o id de entrada é igual ao do objeto atual.
@@ -175,10 +167,38 @@ public class ShoolStudentView extends AbstractBeanView {
 		}
 		return student;
 	}
-
+	
+	/**
+	 * Realiza a exclusão lógica de um estudante.
+	 * @param student
+	 */
+	private void deleteStudent(StudentObj student) {
+		// Imprime o estudante.
+		System.out.println(student.toString());
+		// Recupera a confirmação.
+		boolean confirm = this.confirmDelete();
+		// Se for confirmado a exclusão.
+		if(confirm) {
+			try {
+				// Realiza a exlusão lógica.
+				studentImpl.delete(student);
+			} catch (SQLException e) {
+				// Em caso de Erro.
+				e.printStackTrace();
+			}
+			// Exibe a mensagem.
+			System.out.println("Exclusão realizada!");
+			// Ajusta a classe.
+			this.adjustClass(true);
+		}else {
+			// Exibe a mensagem.
+			System.out.println("Exclusão interrompida.");
+			// Ajusta a classe.
+			this.adjustClass(false);
+		}
+	}
 	/**
 	 * Retorna a lista de estudantes.
-	 * 
 	 * @return a lista de estudantes.
 	 */
 	public List<StudentObj> getStudentList() {
@@ -212,7 +232,8 @@ public class ShoolStudentView extends AbstractBeanView {
 
 	@Override
 	public void delete() {
-		
+		StudentObj student = this.getStudent();
+		this.deleteStudent(student);
 	}
 
 }

@@ -14,10 +14,10 @@ import Exception.ShoolException;
 import obj.StudentObj;
 
 public class StudentImpl {
-	
-	
+
 	/**
 	 * Cria um novo usuário na base de dados.
+	 * 
 	 * @param student objeto de usuário para ser criado.
 	 * @throws SQLException em caso de erro.
 	 */
@@ -27,7 +27,8 @@ public class StudentImpl {
 		// Cria string para conter query de criação.
 		StringBuilder sb = new StringBuilder();
 		// Adiciona o query.
-		sb.append("INSERT INTO students(student_first_name, student_last_name, student_dt_begin, student_dt_update, student_dt_end) VALUES(?,?,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,?)");
+		sb.append(
+				"INSERT INTO students(student_first_name, student_last_name, student_dt_begin, student_dt_update, student_dt_end) VALUES(?,?,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,?)");
 		// Cria um coneção com o banco.
 		Connection connection = CreateConnection.getConection();
 		try {
@@ -49,15 +50,23 @@ public class StudentImpl {
 		} catch (SQLException e) {
 			// lança a exceção.
 			e.printStackTrace();
-		}finally {
+		} finally {
 			// fecha a conexão com o banco.
 			connection.close();
 		}
 	}
 	
+	/**
+	 * Realiza a atualização dos dados de um estudante.
+	 * @param student estudante para a atualização.
+	 * @throws SQLException Em caso de Erro.
+	 */
 	public void update(StudentObj student) throws SQLException {
+		// Valida os campos.
 		this.validate(student);
+		// Recupera a conexão com o banco.
 		Connection connection = CreateConnection.getConection();
+		// Inicia a string que contem a instrução sql.
 		StringBuilder sb = new StringBuilder();
 		sb.append("UPDATE students ");
 		sb.append("SET student_first_name = ?, ");
@@ -75,25 +84,55 @@ public class StudentImpl {
 			stmt.setLong(3, student.getId());
 			stmt.executeUpdate();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			// Em caso de erro.
 			e.printStackTrace();
-		}finally {
+		} finally {
+			// Fecha a conexão como banco.
 			connection.close();
+			// Fecha a preparação.
 			stmt.close();
 		}
-		
-	}
-	
-	public void delet(StudentObj student) {
-		
+
 	}
 	
 	/**
+	 * Realiza a exclusão lógica de um estudante.
+	 * @param student estudante para exclusão.
+	 * @throws SQLException Em caso de Erro.
+	 */
+	public void delete(StudentObj student) throws SQLException {
+		// Recupera a conexão com o banco.
+		Connection connection = CreateConnection.getConection();
+		// Inicia a string que contem a instrução sql.
+		StringBuilder sb = new StringBuilder();
+		sb.append("UPDATE students ");
+		sb.append("SET student_dt_end = CURRENT_TIMESTAMP ");
+		sb.append("WHERE student_id = ?");
+		// Inicializa a preparação de execução.
+		PreparedStatement stmt = connection.prepareStatement(sb.toString());
+		try {
+			// Define o id do estudante.
+			stmt.setLong(1, student.getId());
+			// Executa a exclusão lógica.
+			stmt.executeUpdate();
+		} catch (SQLException e) {
+			// Em caso de erro.
+			e.printStackTrace();
+		} finally {
+			// Fecha coneção com o banco.
+			connection.close();
+			// Fecha a preparação.
+			stmt.close();
+		}
+	}
+
+	/**
 	 * Retorna a lista de estudantes cadastrado.
+	 * 
 	 * @return a lista de estudantes cadastrado.
 	 * @throws SQLException em caso de erro.
 	 */
-	public List<StudentObj> getStudentList() throws SQLException{
+	public List<StudentObj> getStudentList() throws SQLException {
 		// Inicializa a lista de retorno.
 		List<StudentObj> studentList = new ArrayList<>();
 		// Cria a conexão com o banco.
@@ -115,15 +154,16 @@ public class StudentImpl {
 		} catch (SQLException e) {
 			// Lança exceção.
 			e.printStackTrace();
-		}finally {
+		} finally {
 			// Fecha a conexão com o banco.
 			connection.close();
 		}
 		return studentList;
 	}
-	
+
 	/**
 	 * Retorna um estudante cadastrado pelo id informado.
+	 * 
 	 * @param id identificador do estudante.
 	 * @return um estudante cadastrado pelo id informado.
 	 * @throws SQLException em caso de erro.
@@ -151,19 +191,20 @@ public class StudentImpl {
 			// Mapeia a consulta para o objeto de estudante.
 			student = mappingObject(result);
 			// em caso de erro ao executar a query.
-		}catch (SQLException e) {
+		} catch (SQLException e) {
 			// Lança execeção.
 			e.printStackTrace();
-		}finally {
+		} finally {
 			// Fecha a conexão com o banco de dados.
 			connection.close();
 		}
 		// Retorna o estudante.
 		return student;
 	}
-	
+
 	/**
 	 * Retorna um objeto de estudante.
+	 * 
 	 * @param result resultado da consulta.
 	 * @return um objeto de estudante.
 	 * @throws SQLException em caso de erro.
@@ -176,16 +217,17 @@ public class StudentImpl {
 		// Retorna o primeiro objeto da lista.
 		return students.get(0);
 	}
-	
+
 	/**
 	 * Mapeia e popula a lista de objeto de estudante.
-	 * @param result resultado da consulta.
+	 * 
+	 * @param result      resultado da consulta.
 	 * @param studentList lista para ser populada.
 	 * @throws SQLException em caso de erro.
 	 */
 	private void mappingObjectToList(ResultSet result, List<StudentObj> studentList) throws SQLException {
-		if(result != null) {
-			while(result.next()) {
+		if (result != null) {
+			while (result.next()) {
 				StudentObj student = new StudentObj();
 				// Mapeia para o objeto o id do estudante.
 				student.setId(result.getLong("student_id"));
@@ -203,12 +245,12 @@ public class StudentImpl {
 			}
 		}
 	}
-	
+
 	private void validate(StudentObj studant) {
-		if(studant.getFirstName() == null || studant.getFirstName().isEmpty()) {
+		if (studant.getFirstName() == null || studant.getFirstName().isEmpty()) {
 			throw new ShoolException("O primeiro nome está vazio");
 		}
-		if(studant.getLastName() == null || studant.getLastName().isEmpty()) {
+		if (studant.getLastName() == null || studant.getLastName().isEmpty()) {
 			throw new ShoolException("O último nome está vazio");
 		}
 	}

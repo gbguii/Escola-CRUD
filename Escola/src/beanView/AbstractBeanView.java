@@ -7,7 +7,9 @@ import java.util.Scanner;
 import Exception.ShoolException;
 
 public abstract class AbstractBeanView extends Crud {
-
+	/** Entrada de dados. */
+	protected static Scanner sc = new Scanner(System.in);
+	
 	/**
 	 * Retona uma lista todas as opções do sistema no crud.
 	 * 
@@ -21,7 +23,35 @@ public abstract class AbstractBeanView extends Crud {
 		result.add("Voltar");
 		return result;
 	}
+	
+	/**
+	 * Seleciona a opção de entrada a ser executada.
+	 */
+	public void selectOption() {
+		// Recupera a opção do usuário.
+		int option = this.optionSelected();
+		// Seleciona a opção.
+		this.optionCrud(option);
+	}
 
+	/**
+	 * Retorna a opção selecionada pelo usuário.
+	 * @return a opção selecionada pelo usuário.
+	 */
+	private int optionSelected() {
+		System.out.println("O que deseja fazer? ");
+		// Percorre a lista de opções do que se pode fazer.
+		for (int i = 0; i < this.options().size(); i++) {
+			// Imprime a opção.
+			System.out.println(i + 1 + " - " + this.options().get(i));
+		}
+		System.out.print("Digite a opção: ");
+		// Recupera a opção selecionada.
+		int result = sc.nextInt();
+		System.out.println();
+		return result;
+	}
+	
 	/**
 	 * Executa a função de crud conforme a opção selecionada
 	 * 
@@ -39,7 +69,7 @@ public abstract class AbstractBeanView extends Crud {
 			break;
 		// Se for para atualizar um item.
 		case 3:
-			this.update();
+			this.delete();
 			break;
 		// Se for para voltar ao menu anterior.
 		case 4:
@@ -71,16 +101,40 @@ public abstract class AbstractBeanView extends Crud {
 		}
 	}
 	
+	/**
+	 * Retorna se deve realizar a atualização do registro.
+	 * @return se deve realizar a atualização do registro.
+	 */
 	protected boolean confirmUpdate() {
+		// Variável de retorno.
 		boolean result = false;
-		Scanner sc = new Scanner(System.in);
+		// Imprime a mensagem de confirmação.
 		System.out.println("Deseja realizar a atualização? S/N");
+		// Recupera a entrada.
 		String getIn = sc.next();
+		// Verifica se a entrada é válida.
 		if(getIn.equalsIgnoreCase("s")) {
+			// Atribui para verdadeiro o retorno.
 			result = true;
 		}
-		sc.close();
 		return result;
 	}
-	
+	/**
+	 * Retorna se deve realizar a exclusão do registro.
+	 * @return se deve realizar a exclusão do registro.
+	 */
+	protected boolean confirmDelete() {
+		// Variável de retorno.
+		boolean result = false;
+		// Imprime a mensagem de confirmação.
+		System.out.println("Deseja realizar a exclusão? S/N");
+		// Recupera a entrada.
+		String getIn = sc.next();
+		// Verifica se a entrada é válida.
+		if(getIn.equalsIgnoreCase("s")) {
+			// Atribui para verdadeiro o retorno.
+			result = true;
+		}
+		return result;
+	}
 }

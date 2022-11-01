@@ -8,8 +8,8 @@ public class ClassRoomObj extends BasicObj{
 	private Long id;
 	/** Nome  da sala de aula. */
 	private String name;
-	/** Lista de Coursos da sala de aula. */
-	private List<CourseObj> courses;
+	/** Curso da sala de aula. */
+	private CourseObj course;
 	/** Lista de Alunos da sala de aula. */
 	private List<StudentObj> students;
 	
@@ -26,9 +26,9 @@ public class ClassRoomObj extends BasicObj{
 	 * @param courses	Cursos da classe de aula.
 	 * @param students	Estudantes da classe de aula.
 	 */
-	public ClassRoomObj(String name, List<CourseObj> courses, List<StudentObj> students) {
+	public ClassRoomObj(String name, CourseObj course, List<StudentObj> students) {
 		this.name = name;
-		this.courses = courses;
+		this.course = course;
 		this.students = students;
 	}
 	
@@ -59,16 +59,16 @@ public class ClassRoomObj extends BasicObj{
 	 * Retorna o cursos da classe de aula.
 	 * @return o cursos da classe de aula.
 	 */
-	public List<CourseObj> getCourses() {
-		return courses;
+	public CourseObj getCourse() {
+		return course;
 	}
 	
 	/**
-	 * Define a lista de cursos da sala de aula.
-	 * @param courses lista de cursos da sala de aula.
+	 * Define o curso da sala de aula.
+	 * @param course o curso da sala de aula.
 	 */
-	public void setCourses(List<CourseObj> courses) {
-		this.courses = courses;
+	public void setCourses(CourseObj course) {
+		this.course = course;
 	}
 	
 	/**
@@ -86,6 +86,5 @@ public class ClassRoomObj extends BasicObj{
 	public void setStudents(List<StudentObj> students) {
 		this.students = students;
 	}
-	
 	
 }

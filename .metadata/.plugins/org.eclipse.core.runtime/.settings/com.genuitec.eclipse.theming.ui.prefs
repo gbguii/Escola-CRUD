@@ -1,12 +1,10 @@
-applyBackground=true
+applyBackground=false
 approved.defs.file.last.changed.time=1649720987000
 configurationInstallLocation=/C\:/Users/barbi/eclipse/java-2022-03/eclipse/
-ct.upsell.display.after=1663722950231
 eclipse.preferences.version=1
 iconcolormode=primary
 includeThemingInOomph=false
-last.download.attempt.time=1665097763459
-lastConfiguration=1665427811939
-newinstall=false
-showWelcomeDialog=false
+last.download.attempt.time=1667257661420
+lastConfiguration=1667257621954
+newinstall=true
 workbench.theme=Dark Gray
